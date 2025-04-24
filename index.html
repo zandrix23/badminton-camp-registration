@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Badminton Camp Registration</title>
+  <style>
+    body {
+      background-color: #80EF80;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 500px;
+      margin: auto;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .submit-btn {
+      background: #333;
+      color: white;
+      padding: 10px;
+      margin-top: 20px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <form id="registrationForm">
+    <div class="logo">
+      <img src="your-logo-url-here.png" alt="Logo" width="120"/>
+    </div>
+    <label>Last Name:</label>
+    <input type="text" name="LastName" required />
+
+    <label>First Name:</label>
+    <input type="text" name="FirstName" required />
+
+    <label>Age:</label>
+    <input type="number" name="Age" required />
+
+    <label>Home Address:</label>
+    <textarea name="Address" required></textarea>
+
+    <label>Skill Level:</label>
+    <select name="SkillLevel" required>
+      <option>Beginner (first time playing badminton)</option>
+      <option>Advanced Beginner (basic knowledge)</option>
+      <option>Intermediate</option>
+      <option>Advanced</option>
+    </select>
+
+    <label>Court Venue:</label>
+    <input type="text" value="Epicenter" name="Venue" readonly />
+
+    <label>Gcash Payment:</label>
+    <p>Send payment to <strong>09072817395</strong></p>
+
+    <label>Upload Proof of Payment:</label>
+    <input type="file" name="PaymentProof" id="paymentProof" required />
+
+    <label>
+      <input type="checkbox" name="terms" required />
+      I accept the terms and conditions.
+    </label>
+    <details>
+      <summary>Read Terms and Conditions</summary>
+      <pre style="white-space: pre-wrap;">
+1. Registration and Payment
+All participants must complete...
+[Insert the full T&C here for brevity]
+      </pre>
+    </details>
+
+    <button type="submit" class="submit-btn">Submit</button>
+  </form>
+
+  <script>
+  const form = document.getElementById('regForm');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const fileInput = document.getElementById('paymentProof');
+    const termsAccepted = document.getElementById('agreeTerms').checked;
+
+    if (!fileInput.files.length) {
+      alert("Please upload proof of payment.");
+      return;
+    }
+    if (!termsAccepted) {
+      alert("You must accept the terms and conditions.");
+      return;
+    }
+
+    // Grab all the form data
+    const data = {
+      lastName: form.lastName.value,
+      firstName: form.firstName.value,
+      age: form.age.value,
+      address: form.address.value,
+      skill: form.skill.value,
+      venue: form.venue.value,
+      paymentRef: "Uploaded", // We're just noting that payment proof was uploaded
+    };
+
+    // Replace with your real Web App URL
+    const scriptURL = https://script.google.com/macros/s/AKfycbxff5M7ZcpyjHXwOqofydK2SSYxsSVdEpqDtp2knTnKwLvHHxYLkh5NvvG3s97Wn4qoiw/exec;
+
+    try {
+      const response = await fetch(scriptURL, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+
+      if (response.ok) {
+        alert("Registration submitted successfully!");
+        form.reset(); // Clear form after submission
+      } else {
+        alert("There was an error submitting the form.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Submission failed. Please try again.");
+    }
+  });
+</script>
+
+</body>
+</html>
